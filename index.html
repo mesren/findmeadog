@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindMeADog</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        img {
+            max-width: 500px;
+            max-height: 400px;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FindMeADog.mesren.github.io</h1>
+        <img id="dogImage" src="" alt="Random Dog" />
+        <br><br>
+        <button onclick="fetchDogImage()">Get Random Dog</button>
+    </div>
+
+    <script>
+	// Note: This script was partially AI generated.
+        async function fetchDogImage() {
+            try {
+                const response = await fetch('https://api.unsplash.com/photos/random?query=dog&client_id=pruTqKb4TB2qt8CR0LLQoFne1zzBDOswsX0a9VNdpyc');
+                
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+
+                const data = await response.json();
+                console.log('Response data:', data);
+
+                if (data && data.urls && data.urls.regular) {
+                    const imageUrl = data.urls.regular;
+                    document.getElementById('dogImage').src = imageUrl;
+                } else {
+                    throw new Error('Unexpected response format');
+                }
+            } catch (error) {
+                console.error('Error fetching dog image:', error);
+                document.getElementById('dogImage').alt = 'Error fetching dog image';
+                document.getElementById('dogImage').src = '';
+            }
+        }
+    </script>
+</body>
+</html>
